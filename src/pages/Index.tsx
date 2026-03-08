@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Users, Disc3 } from "lucide-react";
@@ -7,12 +6,9 @@ import SectionHeader from "@/components/SectionHeader";
 import ArtistCard from "@/components/ArtistCard";
 import SongCard from "@/components/SongCard";
 import ChartList from "@/components/ChartList";
-import MusicPlayer from "@/components/MusicPlayer";
-import { artists, songs, type Song } from "@/data/mockData";
+import { artists, songs } from "@/data/mockData";
 
 const Index = () => {
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
-
   const latestReleases = [...songs]
     .sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
     .slice(0, 4);
@@ -23,7 +19,6 @@ const Index = () => {
     <Layout>
       {/* Hero */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* Background effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-magenta/5 rounded-full blur-3xl" />
@@ -77,7 +72,7 @@ const Index = () => {
             {[
               { icon: Users, label: "Артистов", value: artists.length },
               { icon: Disc3, label: "Треков", value: songs.length },
-              { icon: TrendingUp, label: "Plays", value: "2.5M" },
+              { icon: TrendingUp, label: "Plays", value: "0" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <stat.icon size={20} className="text-primary mx-auto mb-2" />
@@ -90,46 +85,50 @@ const Index = () => {
       </section>
 
       {/* New Releases */}
-      <section className="container mx-auto px-4 py-16">
-        <SectionHeader title="НОВЫЕ РЕЛИЗЫ" subtitle="Свежие треки от наших артистов">
-          <Link to="/releases" className="text-sm text-primary hover:underline flex items-center gap-1">
-            Все релизы <ArrowRight size={14} />
-          </Link>
-        </SectionHeader>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {latestReleases.map((song, i) => (
-            <SongCard key={song.id} song={song} index={i} onPlay={setCurrentSong} />
-          ))}
-        </div>
-      </section>
+      {latestReleases.length > 0 && (
+        <section className="container mx-auto px-4 py-16">
+          <SectionHeader title="НОВЫЕ РЕЛИЗЫ" subtitle="Свежие треки от наших артистов">
+            <Link to="/releases" className="text-sm text-primary hover:underline flex items-center gap-1">
+              Все релизы <ArrowRight size={14} />
+            </Link>
+          </SectionHeader>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {latestReleases.map((song, i) => (
+              <SongCard key={song.id} song={song} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Top Charts */}
-      <section className="container mx-auto px-4 py-16">
-        <SectionHeader title="ТОП ЧАРТЫ" subtitle="Самые популярные треки недели">
-          <Link to="/charts" className="text-sm text-primary hover:underline flex items-center gap-1">
-            Все чарты <ArrowRight size={14} />
-          </Link>
-        </SectionHeader>
-        <div className="max-w-2xl">
-          <ChartList songs={songs.slice(0, 5)} sortKey="weeklyPlays" onPlay={setCurrentSong} />
-        </div>
-      </section>
+      {songs.length > 0 && (
+        <section className="container mx-auto px-4 py-16">
+          <SectionHeader title="ТОП ЧАРТЫ" subtitle="Самые популярные треки недели">
+            <Link to="/charts" className="text-sm text-primary hover:underline flex items-center gap-1">
+              Все чарты <ArrowRight size={14} />
+            </Link>
+          </SectionHeader>
+          <div className="max-w-2xl">
+            <ChartList songs={songs.slice(0, 5)} sortKey="weeklyPlays" />
+          </div>
+        </section>
+      )}
 
       {/* Popular Artists */}
-      <section className="container mx-auto px-4 py-16">
-        <SectionHeader title="ПОПУЛЯРНЫЕ АРТИСТЫ" subtitle="Звёзды Obsidian Records">
-          <Link to="/artists" className="text-sm text-primary hover:underline flex items-center gap-1">
-            Все артисты <ArrowRight size={14} />
-          </Link>
-        </SectionHeader>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {topArtists.map((artist, i) => (
-            <ArtistCard key={artist.id} artist={artist} index={i} />
-          ))}
-        </div>
-      </section>
-
-      <MusicPlayer currentSong={currentSong} onClose={() => setCurrentSong(null)} />
+      {topArtists.length > 0 && (
+        <section className="container mx-auto px-4 py-16">
+          <SectionHeader title="ПОПУЛЯРНЫЕ АРТИСТЫ" subtitle="Звёзды Obsidian Records">
+            <Link to="/artists" className="text-sm text-primary hover:underline flex items-center gap-1">
+              Все артисты <ArrowRight size={14} />
+            </Link>
+          </SectionHeader>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {topArtists.map((artist, i) => (
+              <ArtistCard key={artist.id} artist={artist} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
     </Layout>
   );
 };
