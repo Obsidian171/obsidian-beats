@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=SF+Pro+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,53 +6,50 @@
 
 @layer base {
   :root {
-    --background: 240 15% 5%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
 
-    --card: 240 12% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 240 12% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 270 100% 65%;
+    --primary: 347 77% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 10% 12%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 85%;
 
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 55%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 280 100% 70%;
+    --accent: 347 77% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 10% 18%;
-    --input: 240 10% 18%;
-    --ring: 270 100% 65%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 347 77% 50%;
 
     --radius: 0.75rem;
 
+    --obsidian: 0 0% 4%;
+    --obsidian-light: 0 0% 8%;
     --neon-purple: 270 100% 65%;
     --neon-cyan: 180 100% 50%;
-    --neon-magenta: 300 100% 60%;
-    --obsidian: 240 15% 10%;
-    --obsidian-light: 240 12% 14%;
+    --neon-magenta: 347 77% 50%;
 
-    --sidebar-background: 240 15% 5%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 270 100% 65%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 347 77% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 10% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 240 10% 18%;
-    --sidebar-ring: 270 100% 65%;
-
-    --font-display: 'Orbitron', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 347 77% 50%;
   }
 }
 
@@ -62,16 +59,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body antialiased;
-    font-family: var(--font-body);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: hsl(270 100% 65% / 0.3);
+    background: hsl(347 77% 50% / 0.3);
     color: hsl(0 0% 100%);
   }
 
@@ -79,55 +73,62 @@
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(240 15% 5%);
+    background: hsl(0 0% 0%);
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(270 100% 65% / 0.3);
+    background: hsl(0 0% 20%);
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(270 100% 65% / 0.5);
+    background: hsl(0 0% 30%);
   }
 }
 
 @layer utilities {
-  .text-glow {
-    text-shadow: 0 0 20px hsl(270 100% 65% / 0.5), 0 0 40px hsl(270 100% 65% / 0.2);
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(347 77% 50%), hsl(280 80% 55%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .text-glow-cyan {
-    text-shadow: 0 0 20px hsl(180 100% 50% / 0.5), 0 0 40px hsl(180 100% 50% / 0.2);
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, hsl(347 77% 50%), hsl(280 80% 55%));
   }
 
-  .neon-border {
-    box-shadow: 0 0 15px hsl(270 100% 65% / 0.15), inset 0 0 15px hsl(270 100% 65% / 0.05);
-    border-color: hsl(270 100% 65% / 0.3);
-  }
-
-  .neon-border-hover:hover {
-    box-shadow: 0 0 25px hsl(270 100% 65% / 0.3), inset 0 0 25px hsl(270 100% 65% / 0.1);
-    border-color: hsl(270 100% 65% / 0.6);
+  .bg-gradient-subtle {
+    background: linear-gradient(180deg, hsl(0 0% 6%), hsl(0 0% 0%));
   }
 
   .glass {
-    background: hsl(240 12% 8% / 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid hsl(240 10% 18% / 0.5);
+    background: hsl(0 0% 4% / 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 
-  .gradient-obsidian {
-    background: linear-gradient(135deg, hsl(240 15% 5%), hsl(270 20% 8%), hsl(240 15% 5%));
+  .glass-card {
+    background: hsl(0 0% 8% / 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  .gradient-neon {
-    background: linear-gradient(135deg, hsl(270 100% 65%), hsl(300 100% 60%));
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px hsl(0 0% 0% / 0.4);
   }
 
-  .font-display {
-    font-family: var(--font-display);
+  .card-shine {
+    position: relative;
+    overflow: hidden;
   }
-
-  .font-body {
-    font-family: var(--font-body);
+  .card-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsl(0 0% 100% / 0.03) 0%, transparent 50%);
+    pointer-events: none;
   }
 }
