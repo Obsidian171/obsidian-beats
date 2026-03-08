@@ -13,7 +13,7 @@ const chartLabels: Record<string, string> = {
   alltime: "За всё время",
 };
 
-const emptyForm = { songId: "", chartType: "weekly" as const, position: "1", plays: "0" };
+const emptyForm = { songId: "", chartType: "weekly" as "weekly" | "monthly" | "alltime", position: "1", plays: "0" };
 
 const ManageCharts = () => {
   const { chartEntries, songs, addChartEntry, updateChartEntry, deleteChartEntry } = useStore();
