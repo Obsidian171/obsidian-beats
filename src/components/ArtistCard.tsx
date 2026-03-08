@@ -16,29 +16,29 @@ const ArtistCard = ({ artist, index = 0 }: ArtistCardProps) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
     >
       <Link
         to={`/artists/${artist.id}`}
-        className="group block rounded-lg border border-border bg-card overflow-hidden transition-all duration-300 neon-border-hover hover:-translate-y-1"
+        className="group block rounded-2xl bg-card overflow-hidden hover-lift card-shine"
       >
-        <div className="aspect-square bg-obsidian-light relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center">
-              <span className="font-display text-2xl font-bold text-primary">
+        <div className="aspect-square bg-secondary relative overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-subtle">
+            <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center">
+              <span className="text-3xl font-bold text-gradient">
                 {artist.name.charAt(0)}
               </span>
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
         </div>
-        <div className="p-4">
-          <h3 className="font-display text-sm font-semibold tracking-wider text-foreground group-hover:text-primary transition-colors">
+        <div className="p-3.5">
+          <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
             {artist.name}
           </h3>
           {latestSong && (
-            <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Music size={12} className="text-primary" />
+            <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Music size={11} className="text-primary flex-shrink-0" />
               <span className="truncate">{latestSong.title}</span>
             </div>
           )}
