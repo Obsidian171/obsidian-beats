@@ -2,7 +2,7 @@ import { useState, createContext, useContext, ReactNode } from "react";
 
 interface AuthContextType {
   isAdmin: boolean;
-  login: (email: string, password: string) => boolean;
+  login: (name: string, phone: string) => boolean;
   logout: () => void;
 }
 
@@ -14,13 +14,11 @@ const AuthContext = createContext<AuthContextType>({
 
 export const useAuth = () => useContext(AuthContext);
 
-// Mock auth - replace with Firebase Authentication
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const login = (email: string, password: string) => {
-    // Mock credentials - replace with Firebase Auth
-    if (email === "tsukassa@obisidian.com" && password === "admin121212") {
+  const login = (name: string, phone: string) => {
+    if (name === "tsukassa@obisidian.com" && phone === "admin121212") {
       setIsAdmin(true);
       return true;
     }

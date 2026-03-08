@@ -43,79 +43,69 @@ const ManageArtists = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-2xl font-bold tracking-wider">АРТИСТЫ</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Артисты</h1>
         <button
           onClick={() => { setShowForm(true); setEditId(null); setForm({ name: "", description: "" }); }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg gradient-neon font-display text-xs font-semibold tracking-wider text-primary-foreground"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-primary text-xs font-semibold text-primary-foreground"
         >
-          <Plus size={16} /> ДОБАВИТЬ
+          <Plus size={14} /> Добавить
         </button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 p-6 rounded-xl border border-border bg-card"
+          className="mb-6 p-5 rounded-2xl border border-border bg-card"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-sm font-bold tracking-wider">
-              {editId ? "РЕДАКТИРОВАТЬ" : "НОВЫЙ АРТИСТ"}
-            </h3>
+            <h3 className="text-sm font-semibold">{editId ? "Редактировать" : "Новый артист"}</h3>
             <button onClick={() => setShowForm(false)} className="text-muted-foreground hover:text-foreground">
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <input
               placeholder="Имя артиста"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
             />
             <textarea
               placeholder="Описание"
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               rows={3}
-              className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none"
             />
-            <div className="text-xs text-muted-foreground">
-              📸 Загрузка фото будет доступна после подключения Firebase Storage
-            </div>
-            <button
-              onClick={handleSave}
-              className="px-6 py-2.5 rounded-lg gradient-neon font-display text-xs font-semibold tracking-wider text-primary-foreground"
-            >
-              СОХРАНИТЬ
+            <button onClick={handleSave} className="px-5 py-2 rounded-xl bg-gradient-primary text-xs font-semibold text-primary-foreground">
+              Сохранить
             </button>
           </div>
         </motion.div>
       )}
 
-      {/* List */}
-      <div className="space-y-2">
+      <div className="space-y-1">
         {artistList.map((artist) => (
-          <div
-            key={artist.id}
-            className="flex items-center gap-4 p-4 rounded-lg border border-border bg-card hover:bg-obsidian-light transition-colors"
-          >
-            <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
-              <span className="font-display text-sm font-bold text-primary">{artist.name.charAt(0)}</span>
+          <div key={artist.id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-card transition-colors">
+            <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+              <span className="text-sm font-bold text-gradient">{artist.name.charAt(0)}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-display text-sm font-semibold tracking-wider text-foreground">{artist.name}</h4>
-              <p className="text-xs text-muted-foreground truncate">{artist.description}</p>
+              <h4 className="text-sm font-medium truncate">{artist.name}</h4>
+              <p className="text-[11px] text-muted-foreground truncate">{artist.description}</p>
             </div>
-            <button onClick={() => handleEdit(artist)} className="text-muted-foreground hover:text-primary transition-colors">
-              <Edit2 size={16} />
+            <button onClick={() => handleEdit(artist)} className="text-muted-foreground hover:text-foreground transition-colors p-1.5">
+              <Edit2 size={14} />
             </button>
-            <button onClick={() => handleDelete(artist.id)} className="text-muted-foreground hover:text-destructive transition-colors">
-              <Trash2 size={16} />
+            <button onClick={() => handleDelete(artist.id)} className="text-muted-foreground hover:text-destructive transition-colors p-1.5">
+              <Trash2 size={14} />
             </button>
           </div>
         ))}
+        {artistList.length === 0 && (
+          <p className="text-sm text-muted-foreground text-center py-12">Нет артистов</p>
+        )}
       </div>
     </div>
   );
