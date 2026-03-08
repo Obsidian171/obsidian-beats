@@ -10,16 +10,16 @@ const Releases = () => {
 
   return (
     <Layout>
-      <section className="container mx-auto px-4 py-16">
-        <SectionHeader title="РЕЛИЗЫ" subtitle="Все релизы Obsidian Records" />
+      <section className="container mx-auto px-4 lg:px-8 py-16">
+        <SectionHeader title="Релизы" subtitle="Все релизы Obsidian Records" />
         {sorted.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {sorted.map((song, i) => (
               <SongCard key={song.id} song={song} index={i} />
             ))}
           </div>
         ) : (
-          <p className="text-muted-foreground text-center py-12">Релизов пока нет</p>
+          <p className="text-muted-foreground text-center py-20 text-sm">Релизов пока нет</p>
         )}
       </section>
     </Layout>

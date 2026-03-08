@@ -10,7 +10,7 @@ import ArtistDetail from "./pages/ArtistDetail";
 import Releases from "./pages/Releases";
 import Charts from "./pages/Charts";
 import About from "./pages/About";
-import AdminLogin from "./pages/admin/AdminLogin";
+import Apply from "./pages/Apply";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageArtists from "./pages/admin/ManageArtists";
@@ -33,7 +33,7 @@ const App = () => (
             <Route path="/releases" element={<Releases />} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/about" element={<About />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/apply" element={<Apply />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="artists" element={<ManageArtists />} />

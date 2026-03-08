@@ -35,12 +35,12 @@ const ManageSongs = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-2xl font-bold tracking-wider">ПЕСНИ</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Песни</h1>
         <button
           onClick={() => { setShowForm(true); setForm({ title: "", artistId: "", releaseDate: "" }); }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg gradient-neon font-display text-xs font-semibold tracking-wider text-primary-foreground"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-primary text-xs font-semibold text-primary-foreground"
         >
-          <Plus size={16} /> ДОБАВИТЬ
+          <Plus size={14} /> Добавить
         </button>
       </div>
 
@@ -48,25 +48,25 @@ const ManageSongs = () => {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 p-6 rounded-xl border border-border bg-card"
+          className="mb-6 p-5 rounded-2xl border border-border bg-card"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-sm font-bold tracking-wider">НОВАЯ ПЕСНЯ</h3>
+            <h3 className="text-sm font-semibold">Новая песня</h3>
             <button onClick={() => setShowForm(false)} className="text-muted-foreground hover:text-foreground">
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <input
               placeholder="Название песни"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-secondary border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
             />
             <select
               value={form.artistId}
               onChange={(e) => setForm({ ...form, artistId: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-secondary border border-border text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
             >
               <option value="">Выберите артиста</option>
               {artists.map((a) => (
@@ -77,47 +77,43 @@ const ManageSongs = () => {
               type="date"
               value={form.releaseDate}
               onChange={(e) => setForm({ ...form, releaseDate: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl bg-secondary border border-border text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
             />
-            <div className="text-xs text-muted-foreground">
-              🎵 Загрузка обложки и MP3 будет доступна после подключения Firebase Storage
-            </div>
-            <button
-              onClick={handleSave}
-              className="px-6 py-2.5 rounded-lg gradient-neon font-display text-xs font-semibold tracking-wider text-primary-foreground"
-            >
-              СОХРАНИТЬ
+            <button onClick={handleSave} className="px-5 py-2 rounded-xl bg-gradient-primary text-xs font-semibold text-primary-foreground">
+              Сохранить
             </button>
           </div>
         </motion.div>
       )}
 
-      {/* Table */}
-      <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div className="rounded-2xl border border-border bg-card overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
-              <th className="text-left px-4 py-3 text-xs text-muted-foreground font-display tracking-wider">НАЗВАНИЕ</th>
-              <th className="text-left px-4 py-3 text-xs text-muted-foreground font-display tracking-wider">АРТИСТ</th>
-              <th className="text-left px-4 py-3 text-xs text-muted-foreground font-display tracking-wider hidden sm:table-cell">PLAYS</th>
-              <th className="text-left px-4 py-3 text-xs text-muted-foreground font-display tracking-wider hidden md:table-cell">ДАТА</th>
-              <th className="w-12"></th>
+              <th className="text-left px-4 py-3 text-[11px] text-muted-foreground uppercase tracking-wider">Название</th>
+              <th className="text-left px-4 py-3 text-[11px] text-muted-foreground uppercase tracking-wider">Артист</th>
+              <th className="text-left px-4 py-3 text-[11px] text-muted-foreground uppercase tracking-wider hidden sm:table-cell">Plays</th>
+              <th className="text-left px-4 py-3 text-[11px] text-muted-foreground uppercase tracking-wider hidden md:table-cell">Дата</th>
+              <th className="w-10"></th>
             </tr>
           </thead>
           <tbody>
             {songList.map((song) => (
-              <tr key={song.id} className="border-b border-border last:border-0 hover:bg-secondary/50 transition-colors">
-                <td className="px-4 py-3 text-foreground font-medium">{song.title}</td>
+              <tr key={song.id} className="border-b border-border last:border-0 hover:bg-secondary/30 transition-colors">
+                <td className="px-4 py-3 font-medium">{song.title}</td>
                 <td className="px-4 py-3 text-muted-foreground">{song.artistName}</td>
                 <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{formatPlays(song.plays)}</td>
                 <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{new Date(song.releaseDate).toLocaleDateString("ru-RU")}</td>
                 <td className="px-4 py-3">
                   <button onClick={() => handleDelete(song.id)} className="text-muted-foreground hover:text-destructive transition-colors">
-                    <Trash2 size={16} />
+                    <Trash2 size={14} />
                   </button>
                 </td>
               </tr>
             ))}
+            {songList.length === 0 && (
+              <tr><td colSpan={5} className="px-4 py-12 text-center text-sm text-muted-foreground">Нет песен</td></tr>
+            )}
           </tbody>
         </table>
       </div>
