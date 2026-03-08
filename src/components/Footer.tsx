@@ -39,7 +39,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-10 pt-5 border-t border-border/50 text-center">
-        <p className="text-[11px] text-muted-foreground">© 2025 Obsidian Records. Все права защищены.</p>
+        <p className="text-[11px] text-muted-foreground">© 2026 Obsidian Records. Все права защищены.</p>
       </div>
     </div>
   </footer>
