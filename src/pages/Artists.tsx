@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import ArtistCard from "@/components/ArtistCard";
 import SectionHeader from "@/components/SectionHeader";
@@ -7,11 +8,15 @@ const Artists = () => (
   <Layout>
     <section className="container mx-auto px-4 py-16">
       <SectionHeader title="АРТИСТЫ" subtitle="Все артисты лейбла Obsidian Records" />
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-        {artists.map((artist, i) => (
-          <ArtistCard key={artist.id} artist={artist} index={i} />
-        ))}
-      </div>
+      {artists.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+          {artists.map((artist, i) => (
+            <ArtistCard key={artist.id} artist={artist} index={i} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-muted-foreground text-center py-12">Артистов пока нет</p>
+      )}
     </section>
   </Layout>
 );
