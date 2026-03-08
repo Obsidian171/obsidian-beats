@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { StoreProvider } from "@/hooks/useStore";
 import Index from "./pages/Index";
 import Artists from "./pages/Artists";
 import ArtistDetail from "./pages/ArtistDetail";
@@ -15,6 +16,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageArtists from "./pages/admin/ManageArtists";
 import ManageSongs from "./pages/admin/ManageSongs";
+import ManageCharts from "./pages/admin/ManageCharts";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,25 +25,28 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/artists" element={<Artists />} />
-            <Route path="/artists/:id" element={<ArtistDetail />} />
-            <Route path="/releases" element={<Releases />} />
-            <Route path="/charts" element={<Charts />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/apply" element={<Apply />} />
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="artists" element={<ManageArtists />} />
-              <Route path="songs" element={<ManageSongs />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <StoreProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/artists" element={<Artists />} />
+              <Route path="/artists/:id" element={<ArtistDetail />} />
+              <Route path="/releases" element={<Releases />} />
+              <Route path="/charts" element={<Charts />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/apply" element={<Apply />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="artists" element={<ManageArtists />} />
+                <Route path="songs" element={<ManageSongs />} />
+                <Route path="charts" element={<ManageCharts />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </StoreProvider>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
