@@ -2,6 +2,8 @@ export interface Artist {
   id: string;
   name: string;
   photoURL: string;
+  coverURL: string;
+  streamURL: string;
   description: string;
   createdAt: string;
 }
@@ -19,9 +21,17 @@ export interface Song {
   monthlyPlays: number;
 }
 
-export const artists: Artist[] = [];
+export interface ChartEntry {
+  id: string;
+  songId: string;
+  chartType: "weekly" | "monthly" | "alltime";
+  position: number;
+  plays: number;
+}
 
+export const artists: Artist[] = [];
 export const songs: Song[] = [];
+export const chartEntries: ChartEntry[] = [];
 
 export const getArtistById = (id: string) => artists.find((a) => a.id === id);
 export const getSongsByArtist = (artistId: string) => songs.filter((s) => s.artistId === artistId);

@@ -1,10 +1,11 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Users, Music, LogOut, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, Users, Music, TrendingUp, LogOut, ArrowLeft } from "lucide-react";
 
 const AdminLayout = () => {
   const { isAdmin, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   if (!isAdmin) {
     navigate("/");
@@ -20,6 +21,7 @@ const AdminLayout = () => {
     { to: "/admin", icon: LayoutDashboard, label: "Дашборд" },
     { to: "/admin/artists", icon: Users, label: "Артисты" },
     { to: "/admin/songs", icon: Music, label: "Песни" },
+    { to: "/admin/charts", icon: TrendingUp, label: "Чарты" },
   ];
 
   return (
@@ -35,7 +37,11 @@ const AdminLayout = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] transition-colors ${
+                location.pathname === link.to
+                  ? "text-foreground bg-secondary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              }`}
             >
               <link.icon size={16} />
               {link.label}

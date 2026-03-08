@@ -1,17 +1,22 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import SectionHeader from "@/components/SectionHeader";
-import ChartList from "@/components/ChartList";
-import { songs } from "@/data/mockData";
+import { useStore } from "@/hooks/useStore";
+import { formatPlays } from "@/data/mockData";
 
 const tabs = [
-  { key: "weeklyPlays" as const, label: "Неделя" },
-  { key: "monthlyPlays" as const, label: "Месяц" },
-  { key: "plays" as const, label: "Всё время" },
+  { key: "weekly" as const, label: "Неделя" },
+  { key: "monthly" as const, label: "Месяц" },
+  { key: "alltime" as const, label: "Всё время" },
 ];
 
 const Charts = () => {
-  const [activeTab, setActiveTab] = useState<"plays" | "weeklyPlays" | "monthlyPlays">("weeklyPlays");
+  const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "alltime">("weekly");
+  const { chartEntries, songs } = useStore();
+
+  const filtered = chartEntries
+    .filter((e) => e.chartType === activeTab)
+    .sort((a, b) => a.position - b.position);
 
   return (
     <Layout>
@@ -34,9 +39,31 @@ const Charts = () => {
           ))}
         </div>
 
-        {songs.length > 0 ? (
+        {filtered.length > 0 ? (
           <div className="max-w-2xl rounded-2xl bg-card/50 py-2">
-            <ChartList songs={songs} sortKey={activeTab} />
+            {filtered.map((entry) => {
+              const song = songs.find((s) => s.id === entry.songId);
+              if (!song) return null;
+              return (
+                <div key={entry.id} className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-card transition-colors">
+                  <div className={`w-7 text-center text-sm font-bold tabular-nums ${entry.position <= 3 ? "text-primary" : "text-muted-foreground"}`}>
+                    {entry.position}
+                  </div>
+                  <div className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    {song.coverURL ? (
+                      <img src={song.coverURL} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-lg text-primary/20">♪</span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-medium text-foreground truncate">{song.title}</h4>
+                    <p className="text-xs text-muted-foreground truncate">{song.artistName}</p>
+                  </div>
+                  <div className="text-xs text-muted-foreground font-medium tabular-nums">{formatPlays(entry.plays)}</div>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <p className="text-muted-foreground text-center py-20 text-sm">Чарты пока пусты</p>

@@ -5,15 +5,23 @@ import Layout from "@/components/Layout";
 import SectionHeader from "@/components/SectionHeader";
 import ArtistCard from "@/components/ArtistCard";
 import SongCard from "@/components/SongCard";
-import ChartList from "@/components/ChartList";
-import { artists, songs } from "@/data/mockData";
+import { useStore } from "@/hooks/useStore";
+import { formatPlays } from "@/data/mockData";
 
 const Index = () => {
+  const { artists, songs, chartEntries } = useStore();
+
   const latestReleases = [...songs]
     .sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
     .slice(0, 4);
 
   const topArtists = artists.slice(0, 4);
+  const totalPlays = songs.reduce((sum, s) => sum + s.plays, 0);
+
+  const weeklyChart = chartEntries
+    .filter((e) => e.chartType === "weekly")
+    .sort((a, b) => a.position - b.position)
+    .slice(0, 5);
 
   return (
     <Layout>
@@ -66,7 +74,7 @@ const Index = () => {
             {[
               { icon: Users, label: "Артистов", value: artists.length },
               { icon: Disc3, label: "Треков", value: songs.length },
-              { icon: TrendingUp, label: "Plays", value: "0" },
+              { icon: TrendingUp, label: "Plays", value: formatPlays(totalPlays) },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <stat.icon size={18} className="text-primary mx-auto mb-2 opacity-60" />
@@ -93,7 +101,7 @@ const Index = () => {
         </section>
       )}
 
-      {songs.length > 0 && (
+      {weeklyChart.length > 0 && (
         <section className="container mx-auto px-4 lg:px-8 py-16">
           <SectionHeader title="Топ чарты" subtitle="Самые популярные треки">
             <Link to="/charts" className="text-xs text-primary hover:underline flex items-center gap-1">
@@ -101,7 +109,29 @@ const Index = () => {
             </Link>
           </SectionHeader>
           <div className="max-w-2xl rounded-2xl bg-card/50 py-2">
-            <ChartList songs={songs.slice(0, 5)} sortKey="weeklyPlays" />
+            {weeklyChart.map((entry) => {
+              const song = songs.find((s) => s.id === entry.songId);
+              if (!song) return null;
+              return (
+                <div key={entry.id} className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-card transition-colors">
+                  <div className={`w-7 text-center text-sm font-bold tabular-nums ${entry.position <= 3 ? "text-primary" : "text-muted-foreground"}`}>
+                    {entry.position}
+                  </div>
+                  <div className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    {song.coverURL ? (
+                      <img src={song.coverURL} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-lg text-primary/20">♪</span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-medium text-foreground truncate">{song.title}</h4>
+                    <p className="text-xs text-muted-foreground truncate">{song.artistName}</p>
+                  </div>
+                  <div className="text-xs text-muted-foreground tabular-nums">{formatPlays(entry.plays)}</div>
+                </div>
+              );
+            })}
           </div>
         </section>
       )}

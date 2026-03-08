@@ -16,14 +16,16 @@ const SongCard = ({ song, index = 0 }: SongCardProps) => (
     className="group rounded-2xl bg-card overflow-hidden hover-lift card-shine"
   >
     <div className="aspect-square bg-secondary relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center bg-gradient-subtle">
-        <span className="text-4xl font-bold text-primary/20">♪</span>
-      </div>
+      {song.coverURL ? (
+        <img src={song.coverURL} alt={song.title} className="w-full h-full object-cover" loading="lazy" />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-subtle">
+          <span className="text-4xl font-bold text-primary/20">♪</span>
+        </div>
+      )}
     </div>
     <div className="p-3.5">
-      <h3 className="text-sm font-semibold text-foreground truncate">
-        {song.title}
-      </h3>
+      <h3 className="text-sm font-semibold text-foreground truncate">{song.title}</h3>
       <p className="text-xs text-muted-foreground mt-0.5 truncate">{song.artistName}</p>
       <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
         <div className="flex items-center gap-1">

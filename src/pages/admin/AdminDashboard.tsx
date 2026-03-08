@@ -1,16 +1,20 @@
 import { motion } from "framer-motion";
-import { Users, Music, Headphones, Trophy } from "lucide-react";
-import { artists, songs, formatPlays } from "@/data/mockData";
+import { Users, Music, TrendingUp, Headphones } from "lucide-react";
+import { useStore } from "@/hooks/useStore";
+import { formatPlays } from "@/data/mockData";
 
 const AdminDashboard = () => {
+  const { artists, songs, chartEntries } = useStore();
   const totalPlays = songs.reduce((sum, s) => sum + s.plays, 0);
-  const weeklyTop = [...songs].sort((a, b) => b.weeklyPlays - a.weeklyPlays)[0];
+  const weeklyChart = chartEntries.filter((e) => e.chartType === "weekly").sort((a, b) => a.position - b.position);
+  const topWeekly = weeklyChart[0];
+  const topSong = topWeekly ? songs.find((s) => s.id === topWeekly.songId) : null;
 
   const stats = [
     { icon: Users, label: "Артистов", value: artists.length },
     { icon: Music, label: "Песен", value: songs.length },
     { icon: Headphones, label: "Прослушиваний", value: formatPlays(totalPlays) },
-    { icon: Trophy, label: "Лидер недели", value: weeklyTop?.title || "—" },
+    { icon: TrendingUp, label: "Лидер недели", value: topSong?.title || "—" },
   ];
 
   return (

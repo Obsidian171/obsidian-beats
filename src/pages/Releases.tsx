@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout";
 import SongCard from "@/components/SongCard";
 import SectionHeader from "@/components/SectionHeader";
-import { songs } from "@/data/mockData";
+import { useStore } from "@/hooks/useStore";
 
 const Releases = () => {
+  const { songs } = useStore();
   const sorted = [...songs].sort(
     (a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
   );
