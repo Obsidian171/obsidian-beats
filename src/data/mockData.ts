@@ -19,50 +19,7 @@ export interface Song {
   monthlyPlays: number;
 }
 
-export const artists: Artist[] = [
-  {
-    id: "1",
-    name: "VOID RUNNER",
-    photoURL: "",
-    description: "Электронный артист из виртуального мира Neon City. Создаёт атмосферные треки, сочетающие синтвейв и киберпанк-эстетику.",
-    createdAt: "2024-01-15",
-  },
-  {
-    id: "2",
-    name: "CRYSTAL ECHO",
-    photoURL: "",
-    description: "Загадочный продюсер, чьи треки звучат в самых эпичных игровых сценах. Мастер эмбиент-электроники.",
-    createdAt: "2024-02-20",
-  },
-  {
-    id: "3",
-    name: "NEON SHADE",
-    photoURL: "",
-    description: "Агрессивный электронный стиль с элементами дабстепа и трэпа. Идеальный саундтрек для боевых сцен.",
-    createdAt: "2024-03-10",
-  },
-  {
-    id: "4",
-    name: "PIXEL STORM",
-    photoURL: "",
-    description: "Ретро-футуристический звук, вдохновлённый классическими аркадными играми и 8-битной эстетикой.",
-    createdAt: "2024-04-05",
-  },
-  {
-    id: "5",
-    name: "DARK HORIZON",
-    photoURL: "",
-    description: "Тёмный и мрачный электронный продюсер. Его музыка — это путешествие через цифровые пустоши.",
-    createdAt: "2024-05-12",
-  },
-  {
-    id: "6",
-    name: "AURORA GLITCH",
-    photoURL: "",
-    description: "Экспериментальный артист, ломающий границы между музыкой и цифровым искусством.",
-    createdAt: "2024-06-01",
-  },
-];
+export const artists: Artist[] = [];
 
 export const songs: Song[] = [
   {
