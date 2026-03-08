@@ -61,7 +61,7 @@ const AdminLogin = () => {
         </form>
 
         <p className="text-xs text-muted-foreground text-center mt-6">
-          Demo: admin@obsidian.com / admin123
+          Вход только для администраторов
         </p>
       </motion.div>
     </div>
