@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (email: string, password: string) => {
     // Mock credentials - replace with Firebase Auth
-    if (email === "admin@obsidian.com" && password === "admin123") {
+    if (email === "tsukassa@obisidian.com" && password === "admin121212") {
       setIsAdmin(true);
       return true;
     }

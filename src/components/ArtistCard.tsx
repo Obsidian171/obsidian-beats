@@ -22,7 +22,6 @@ const ArtistCard = ({ artist, index = 0 }: ArtistCardProps) => {
         to={`/artists/${artist.id}`}
         className="group block rounded-lg border border-border bg-card overflow-hidden transition-all duration-300 neon-border-hover hover:-translate-y-1"
       >
-        {/* Artist photo */}
         <div className="aspect-square bg-obsidian-light relative overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center">
@@ -33,8 +32,6 @@ const ArtistCard = ({ artist, index = 0 }: ArtistCardProps) => {
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
         </div>
-
-        {/* Info */}
         <div className="p-4">
           <h3 className="font-display text-sm font-semibold tracking-wider text-foreground group-hover:text-primary transition-colors">
             {artist.name}
